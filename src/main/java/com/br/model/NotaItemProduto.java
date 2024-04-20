@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -17,23 +18,23 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
-
 @jakarta.persistence.Entity
 @Table(name = "NOTAITEMPRODUTO")
-@SequenceGenerator(name = "SEQ_NOTAITEMPRODUTO", sequenceName = "SEQ_NOTAITEMPRODUTO", allocationSize = 1, initialValue = 1) 
-public class NotaItemProduto  implements Serializable{
-	
+@SequenceGenerator(name = "SEQ_NOTAITEMPRODUTO", sequenceName = "SEQ_NOTAITEMPRODUTO", allocationSize = 1, initialValue = 1)
+public class NotaItemProduto implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_NOTAITEMPRODUTO")
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_NOTAITEMPRODUTO")
+	private Long id;
+	@Column(nullable = false)
 	private Double qtd;
-	
+
 	@ManyToOne(targetEntity = Produto.class)
 	@JoinColumn(name = "PRODUTO_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_PRODUTO_ID"))
 	private Produto produto;
-	
+
 	@ManyToOne(targetEntity = Produto.class)
 	@JoinColumn(name = "NOTAFISCALCOMPRA_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_NOTAFISCALCOMPRA_ID"))
 	private NotaFiscalCompra notafiscalcompra;
@@ -86,6 +87,5 @@ public class NotaItemProduto  implements Serializable{
 		NotaItemProduto other = (NotaItemProduto) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }

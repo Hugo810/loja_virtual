@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -17,38 +18,40 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
-
 @jakarta.persistence.Entity
 @Table(name = "NOTAFISCALCOMPRA")
-@SequenceGenerator(name = "SEQ_NOTAFISCALCOMPRA", sequenceName = "SEQ_NOTAFISCALCOMPRA", allocationSize = 1, initialValue = 1) 
-public class NotaFiscalCompra  implements Serializable{
-	
+@SequenceGenerator(name = "SEQ_NOTAFISCALCOMPRA", sequenceName = "SEQ_NOTAFISCALCOMPRA", allocationSize = 1, initialValue = 1)
+public class NotaFiscalCompra implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_NOTAFISCALCOMPRA")
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_NOTAFISCALCOMPRA")
+	private Long id;
+	@Column(nullable = false)
 	private String numeronota;
+	@Column(nullable = false)
 	private String serienota;
+	
 	private String descricaoobs;
+	@Column(nullable = false)
 	private BigDecimal valortotal;
+	
 	private BigDecimal valordesconto;
+	@Column(nullable = false)
 	private BigDecimal valoricms;
-	
+
 	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
 	private Date datacompra;
-	
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "PESSOA_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_ENDERECOS_PESSOAS_ID"))
 	private Pessoa pessoa;
-	
+
 	@ManyToOne(targetEntity = Conta_Pagar.class)
 	@JoinColumn(name = "CONTA_PAGAR_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_ENDERECOS_PESSOAS_ID"))
 	private Conta_Pagar conta_pagar;
-
-	
 
 	public Long getId() {
 		return id;
@@ -146,9 +149,5 @@ public class NotaFiscalCompra  implements Serializable{
 		NotaFiscalCompra other = (NotaFiscalCompra) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
-	
-	
+
 }

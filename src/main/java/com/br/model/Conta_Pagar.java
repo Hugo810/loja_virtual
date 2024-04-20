@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 import com.br.enums.StatuscontaPagar;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,24 +33,31 @@ public class Conta_Pagar implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CONTA_PAGAR")
 	private Long id;
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private StatuscontaPagar status;
-	
+	@Column(nullable = false)
+	private String descricao;
+
 	private BigDecimal valorDesconto;
 
 	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
 	private Date dtVencimento;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataPagamento;
+	@Column(nullable = false)
 	private BigDecimal valorTotal;
 
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "PESSOA_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_ENDERECOS_PESSOAS_ID"))
 	private Pessoa pessoa;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
-    @JoinColumn(name = "FORN_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_FORN_ID"))
-    private Pessoa pessoa_fornecedor;
+	@JoinColumn(name = "FORN_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_FORN_ID"))
+	private Pessoa pessoa_fornecedor;
+
+
 
 	public Long getId() {
 		return id;
@@ -64,6 +73,14 @@ public class Conta_Pagar implements Serializable {
 
 	public void setStatus(StatuscontaPagar status) {
 		this.status = status;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public BigDecimal getValorDesconto() {
@@ -130,6 +147,5 @@ public class Conta_Pagar implements Serializable {
 		Conta_Pagar other = (Conta_Pagar) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }

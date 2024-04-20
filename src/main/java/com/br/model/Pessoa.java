@@ -30,10 +30,9 @@ public class Pessoa implements Serializable {
 	private String nome;
 	private String email;
 	private String telefone;
-	
-	@OneToMany(mappedBy = "pessoa",orphanRemoval = true, cascade = CascadeType.ALL,fetch=FetchType.LAZY)
-	private List<Endereco> enderecos = new ArrayList<>();
 
+	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Endereco> enderecos = new ArrayList<>();
 
 	public Long getId() {
 		return id;

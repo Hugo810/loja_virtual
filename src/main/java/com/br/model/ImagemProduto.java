@@ -14,22 +14,23 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-
 @jakarta.persistence.Entity
 @Table(name = "IMAGEM_PRODUTOS")
-@SequenceGenerator(name = "SEQ_IMAGEM_PRODUTOS", sequenceName = "SEQ_IMAGEM_PRODUTOS", allocationSize = 1, initialValue = 1) 
-public class ImagemProduto  implements Serializable{
-	
+@SequenceGenerator(name = "SEQ_IMAGEM_PRODUTOS", sequenceName = "SEQ_IMAGEM_PRODUTOS", allocationSize = 1, initialValue = 1)
+public class ImagemProduto implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_IMAGEM_PRODUTOS")
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_IMAGEM_PRODUTOS")
+	private Long id;
+	@Column(nullable = false)
 	private String imagemoriginal;
+	@Column(nullable = false)
 	private String imagemminiatura;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
-    @JoinColumn(name = "PRODUTO_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_FORN_ID"))
+	@JoinColumn(name = "PRODUTO_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_FORN_ID"))
 	private Produto produto;
 
 	public Long getId() {
@@ -80,5 +81,5 @@ public class ImagemProduto  implements Serializable{
 		ImagemProduto other = (ImagemProduto) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 }

@@ -1,6 +1,5 @@
 package com.br.model;
 
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -26,35 +26,32 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "USUARIOS")
-@SequenceGenerator(name = "SEQ_USUARIOS", sequenceName = "SEQ_USUARIOS", allocationSize = 1, initialValue = 1) 
-public class Usuario implements UserDetails{
-	
+@SequenceGenerator(name = "SEQ_USUARIOS", sequenceName = "SEQ_USUARIOS", allocationSize = 1, initialValue = 1)
+public class Usuario implements UserDetails {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIOS")
 	private long id;
-	
+
 	private String login;
 	private String senha;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date data_atual_senha;
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "PESSOA_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_ENDERECOS_PESSOAS_ID"))
+	private Pessoa pessoa;
 	
+
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-		name = "usuarios_acessos",
-		uniqueConstraints = @UniqueConstraint(columnNames = { "usuario_id", "acesso_id"},
-		name = "unque_acesso_user"),
-		joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id", table = "usuarios", unique = false, foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)),
-		inverseJoinColumns = @JoinColumn(name = "acesso_id", unique = false, referencedColumnName = "id", table = "acessos"),
-		foreignKey = @ForeignKey(name = "acesso_fk", value = ConstraintMode.CONSTRAINT)
-	)
+	@JoinTable(name = "usuarios_acessos", uniqueConstraints = @UniqueConstraint(columnNames = { "usuario_id",
+			"acesso_id" }, name = "unque_acesso_user"), joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id", table = "usuarios", unique = false, foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)), inverseJoinColumns = @JoinColumn(name = "acesso_id", unique = false, referencedColumnName = "id", table = "acessos"), foreignKey = @ForeignKey(name = "acesso_fk", value = ConstraintMode.CONSTRAINT))
 	private List<Acesso> acessos;
-	
-	
+
 	private static final long serialVersionUID = 1L;
 
-	//*Autoridades = os acessos, ou seja ROLE_ADMIN, ROLE_FINANCEIRO, ETC
+	// *Autoridades = os acessos, ou seja ROLE_ADMIN, ROLE_FINANCEIRO, ETC
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.acessos;
@@ -76,7 +73,7 @@ public class Usuario implements UserDetails{
 	}
 
 	@Override
-	public boolean isAccountNonLocked() { 
+	public boolean isAccountNonLocked() {
 		return true;
 	}
 
@@ -90,5 +87,4 @@ public class Usuario implements UserDetails{
 		return true;
 	}
 
-	
 }

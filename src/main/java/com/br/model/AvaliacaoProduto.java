@@ -14,25 +14,25 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-
 @jakarta.persistence.Entity
 @Table(name = "AVALIACAOPRODUTO")
-@SequenceGenerator(name = "SEQ_AVALIACAOPRODUTO", sequenceName = "SEQ_AVALIACAOPRODUTO", allocationSize = 1, initialValue = 1) 
-public class AvaliacaoProduto  implements Serializable{
-	
+@SequenceGenerator(name = "SEQ_AVALIACAOPRODUTO", sequenceName = "SEQ_AVALIACAOPRODUTO", allocationSize = 1, initialValue = 1)
+public class AvaliacaoProduto implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_AVALIACAOPRODUTO")
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_AVALIACAOPRODUTO")
+	private Long id;
+	@Column(nullable = false)
 	private Integer nota;
-	
+	@Column(nullable = false)
 	private String descricao;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "PESSOA_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_ENDERECOS_PESSOAS_ID"))
 	private Pessoa pessoa;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "PRODUTO_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_PRODUTO_ID"))
 	private Produto produto;
@@ -85,7 +85,5 @@ public class AvaliacaoProduto  implements Serializable{
 		AvaliacaoProduto other = (AvaliacaoProduto) obj;
 		return Objects.equals(id, other.id);
 	}
-	
 
-	
 }

@@ -1,4 +1,5 @@
 package com.br.model;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -21,40 +22,40 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "ENDERECOS")
-@SequenceGenerator(name = "SEQ_ENDERECOS", sequenceName = "SEQ_ENDERECOS", allocationSize = 1, initialValue = 1) 
+@SequenceGenerator(name = "SEQ_ENDERECOS", sequenceName = "SEQ_ENDERECOS", allocationSize = 1, initialValue = 1)
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ENDERECOS")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String logradouro;
 	
 	@Column(nullable = false)
 	private String cep;
-	
+
 	@Column(nullable = false)
 	private String numero;
+
 	
-	@Column(nullable = false)
 	private String complemento;
-	
+
 	@Column(nullable = false)
 	private String bairro;
-	
+
 	@Column(nullable = false)
 	private String cidade;
-	
+
 	@Column(nullable = false)
 	private String uf;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "PESSOA_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_ENDERECOS_PESSOAS_ID"))
 	private Pessoa pessoa;
-	
+
 	@Column(nullable = false)
 	private String tipo_endereco;
 
@@ -154,6 +155,5 @@ public class Endereco implements Serializable {
 		Endereco other = (Endereco) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }

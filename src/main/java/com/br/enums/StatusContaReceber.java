@@ -1,26 +1,19 @@
 package com.br.enums;
 
 public enum StatusContaReceber {
-	
-	COBRANCA("Pagar"),
-	VENCIDA("Vencida"),
-	ABERTA("Aberta"),
-	QUITADA("Quitada");
-	
+
+	COBRANCA("Pagar"), VENCIDA("Vencida"), ABERTA("Aberta"), QUITADA("Quitada");
+
 	private String descricao;
 
 	private StatusContaReceber(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return this.descricao;
 	}
-	
-	
-	
-	
 
 }

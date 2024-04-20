@@ -19,39 +19,45 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
-
 @jakarta.persistence.Entity
 @Table(name = "NOTAFISCALVENDA")
-@SequenceGenerator(name = "SEQ_NOTAFISCALVENDA", sequenceName = "SEQ_NOTAFISCALVENDA", allocationSize = 1, initialValue = 1) 
-public class NotaFiscalVenda  implements Serializable{
-	
+@SequenceGenerator(name = "SEQ_NOTAFISCALVENDA", sequenceName = "SEQ_NOTAFISCALVENDA", allocationSize = 1, initialValue = 1)
+public class NotaFiscalVenda implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_NOTAFISCALVENDA")
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_NOTAFISCALVENDA")
+	private Long id;
+	@Column(nullable = false)
 	private String numeronota;
+	@Column(nullable = false)
 	private String serienota;
+	@Column(nullable = false)
 	private String tipo;
+	
 	@Column(columnDefinition = "text")
+	
 	private String xml;
 	@Column(columnDefinition = "text")
 	private String pdf;
-	
+
 	@OneToOne
 	@JoinColumn(name = "VENDACOMPRALOJAVIRTUAL", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_VENDACOMPRALOJAVIRTUAL"))
 	private VendaLojaVirtual vendacompralojavirtual;
-	
 
-	/*@ManyToOne(targetEntity = Pessoa.class)
-	@JoinColumn(name = "PESSOA_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_ENDERECOS_PESSOAS_ID"))
-	private Pessoa pessoa;
-	
-	@ManyToOne(targetEntity = Conta_Pagar.class)
-	@JoinColumn(name = "CONTA_PAGAR_ID", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_ENDERECOS_PESSOAS_ID"))
-	private Conta_Pagar conta_pagar;*/
+	/*
+	 * @ManyToOne(targetEntity = Pessoa.class)
+	 * 
+	 * @JoinColumn(name = "PESSOA_ID", nullable = false, foreignKey
+	 * = @ForeignKey(value = ConstraintMode.CONSTRAINT, name =
+	 * "FK_ENDERECOS_PESSOAS_ID")) private Pessoa pessoa;
+	 * 
+	 * @ManyToOne(targetEntity = Conta_Pagar.class)
+	 * 
+	 * @JoinColumn(name = "CONTA_PAGAR_ID", nullable = false, foreignKey
+	 * = @ForeignKey(value = ConstraintMode.CONSTRAINT, name =
+	 * "FK_ENDERECOS_PESSOAS_ID")) private Conta_Pagar conta_pagar;
+	 */
 
-	
-	
 }
