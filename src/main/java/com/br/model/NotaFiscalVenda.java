@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -37,6 +38,10 @@ public class NotaFiscalVenda  implements Serializable{
 	private String xml;
 	@Column(columnDefinition = "text")
 	private String pdf;
+	
+	@OneToOne
+	@JoinColumn(name = "VENDACOMPRALOJAVIRTUAL", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "FK_VENDACOMPRALOJAVIRTUAL"))
+	private VendaLojaVirtual vendacompralojavirtual;
 	
 
 	/*@ManyToOne(targetEntity = Pessoa.class)
