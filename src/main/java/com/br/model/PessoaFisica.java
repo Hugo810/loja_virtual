@@ -5,6 +5,7 @@ import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -12,6 +13,7 @@ import jakarta.persistence.TemporalType;
 @Entity
 @Table(name="pessoa_fisica")
 @PrimaryKeyJoinColumn(name="id")
+@SequenceGenerator(name = "SEQ_PESSOAFISICA", sequenceName = "SEQ_PESSOAFISICA", allocationSize = 1, initialValue = 1) 
 public class PessoaFisica extends Pessoa{
 
 	private static final long serialVersionUID = 1L;
@@ -33,8 +35,4 @@ public class PessoaFisica extends Pessoa{
 		this.dataNascimento = dataNascimento;
 	}
 	
-	
-	
-	
-
 }

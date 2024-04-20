@@ -5,11 +5,13 @@ package com.br.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="pessoa_juridica")
 @PrimaryKeyJoinColumn(name="id")
+@SequenceGenerator(name = "SEQ_PESSOAJURIDICA", sequenceName = "SEQ_PESSOJURIDICA", allocationSize = 1, initialValue = 1) 
 public class PessoaJuridica extends Pessoa{
 
 	private static final long serialVersionUID = 1L;
